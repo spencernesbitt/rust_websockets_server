@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <body>
+        <h1>Web Socket Client</h1>
+        <script>
+            window.onload = () => {
+                const BACKEND_URL = "wss://" + window.location.hostname + ":9231/echo";
+                const socket = new WebSocket(BACKEND_URL);
+                socket.onopen = () => {
+                    console.log("socket opened");
+                    setInterval(_ => socket.send("Hello Server"), 3000);
+                }
+                socket.onmessage = (msg) => console.log("Received:", msg.data);
+                socket.onerror = (err) => console.error(err);
+                socket.onclose = () => console.log("Socket Closed");
+            }
+        </script>
+    </body>
+</html>
